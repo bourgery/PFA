@@ -17,18 +17,13 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 .config(function($translateProvider) {
 		$translateProvider.preferredLanguage('fr');
 	})
-	.controller('tabCtrl', ['$scope', '$stateParams', '$state', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-		// You can include any angular dependencies as parameters for this function
-		// TIP: Access Route Parameters for your page via $stateParams.parameterName
+	.controller('tabCtrl', ['$scope', '$stateParams', '$state', '$rootScope',
 		function($scope, $stateParams, $state, $rootScope) {
 			$scope.goGen = function() {
-				console.log("Général");
 				$state.go('menuGen.accueil_gen');
 			};
 
 			$scope.goMembre = function() {
-				console.log("Membre");
-				console.log($rootScope.login);
 				if ($rootScope.login == '' || $rootScope.login === undefined)
 					$state.go('alema');
 				else
@@ -37,9 +32,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 		}
 	])
 
-.controller('alemaCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-	// You can include any angular dependencies as parameters for this function
-	// TIP: Access Route Parameters for your page via $stateParams.parameterName
+.controller('alemaCtrl', ['$scope', '$stateParams',
 	function($scope, $stateParams) {
 
 
@@ -92,17 +85,14 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 		};
 		$scope.$on("$ionicSlides.sliderInitialized", function(event, data) {
 			// data.slider is the instance of Swiper
-			console.log("init");
 			$scope.slider = data.slider;
 			$scope.slider.activeIndex = $scope.pictureIndex;
 
 		});
 		$scope.$on("$ionicView.enter", function(event, data) {
-			console.log("enter");
-			$scope.load = false;
+						$scope.load = false;
 			if ($scope.slider !== undefined) {
-				console.log($scope.slider.activeIndex);
-			}
+							}
 			$http({
 					method: 'GET',
 					url: $rootScope.url + 'trips/' + $rootScope.sejourId + '/pictures',
@@ -214,8 +204,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 
 			// File for Upload
 			var targetPath = $scope.pathForImage($scope.image);
-			console.log(targetPath);
-			// File name only
+						// File name only
 			var filename = $scope.image;;
 
 			var options = {
@@ -250,8 +239,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 		};
 
 		$scope.showModal = function(templateUrl) {
-			console.log("showModal");
-			$ionicModal.fromTemplateUrl(templateUrl, {
+						$ionicModal.fromTemplateUrl(templateUrl, {
 				scope: $scope,
 				animation: 'slide-in-up'
 			}).then(function(modal) {
@@ -293,8 +281,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 		}
 
 		$scope.addLike = function(id, index) {
-			console.log($rootScope.token);
-			$http({
+						$http({
 					method: 'POST',
 					url: $rootScope.url + 'pictures/' + id + "/like-pictures",
 					headers: {
@@ -339,8 +326,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 					}
 				})
 				.success(function(data, status, headers, config) {
-					console.log(data);
-					$scope.commentary = data;
+										$scope.commentary = data;
 					for (var i = 0; i < $scope.commentary.length; i++) {
 						if ($scope.commentary[i].loginUser.login == $rootScope.login) {
 							$scope.commentary[i].own = 1;
@@ -667,9 +653,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 	}
 ])
 
-.controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-	// You can include any angular dependencies as parameters for this function
-	// TIP: Access Route Parameters for your page via $stateParams.parameterName
+.controller('menuCtrl', ['$scope', '$stateParams',
 	function($scope, $stateParams) {
 
 
@@ -729,8 +713,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 .controller('mesSJoursCtrl', ['$scope', '$http', '$rootScope', '$state',
 	function($scope, $http, $rootScope, $state) {
 		$scope.$on("$ionicView.enter", function(event, data) {
-			console.log($rootScope.role);
-			$scope.date = new Date();
+						$scope.date = new Date();
 			$scope.load = true;
 			if ($rootScope.role !== 'ROLE_DIRECTOR') {
 				$http({
@@ -774,8 +757,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 								$scope.sejours[i].info = "En cours";
 							}
 						}
-						console.log($scope.sejours);
-						$scope.load = false;
+												$scope.load = false;
 					})
 					.error(function(data, status, headers, config) {
 
@@ -1377,8 +1359,7 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 		$scope.modifRelationChild = function(id, index) {
 			$scope.change = {};
 			$scope.change.familyLink = $scope.data[index].familyLink;
-			console.log($scope.change.familyLink);
-			$http({
+						$http({
 					method: 'PATCH',
 					url: $rootScope.url + 'access_children/' + id,
 					data: $scope.change,
@@ -1481,11 +1462,8 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 				})
 				.error(function(data, status, headers, config) {});
 		});
-		$scope.goSite = function(){
-			console.log("ok");
-			//console.log($scope.parteners[id]);
-		};
 	}
+
 ])
 
 
@@ -1493,42 +1471,18 @@ angular.module('app.controllers', ['ionic', 'ui.router', 'ngCordova', 'pascalpre
 .controller('sejoursCtrl', ['$scope', '$http', '$rootScope', '$state',
 	function($scope, $http, $rootScope, $state) {
 		$scope.$on("$ionicView.enter", function(event, data) {
-			//$scope.date = new Date();
-			//$scope.load = true;
 			$scope.data = {};
 			$http({
 					method: 'GET',
 					url: $rootScope.url + 'trips',
-					/*data: $scope.data/*,
-					headers: {
-						'X-Auth-Token': $rootScope.token
-					}*/
 				})
 				.success(function(data, status, headers, config) {
 					$scope.sejours_gen = data;
-					console.log("récupération des séjours: OK");
-					console.log($scope.sejours_gen.length);
-					/*for (var i = 0; i < $scope.sejours.length; i++) {
-						var dateStart = new Date($scope.sejours[i].dateStart);
-						var dateEnd = new Date($scope.sejours[i].dateEnd);
-						if (dateEnd < $scope.date) {
-							$scope.sejours[i].info = "Fini";
-						} else if (dateStart > $scope.date) {
-							$scope.sejours[i].info = "A Venir";
-						} else {
-							$scope.sejours[i].info = "En cours";
-						}
-					}*/
 					$scope.load = false;
 				})
 				.error(function(data, status, headers, config) {
-					console.log("echec de la récupération des séjours")
-				});
+									});
 		});
-		/*$scope.change = function(id) {
-			$rootScope.sejour_gen.name = $scope.sejours_gen[id].name;
-			$rootScope.sejourGenId = $scope.sejours_gen[id].id;
-		};*/
 
 	}
 ])
