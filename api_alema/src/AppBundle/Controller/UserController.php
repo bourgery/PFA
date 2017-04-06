@@ -54,7 +54,7 @@ class UserController extends Controller
                 ->getRepository('AppBundle:User')
                 ->find($request->get('login'));
         /* @var $user User */
-        if($userToken->getLogin()!= $user->getLogin()){
+        if($userToken->getLogin() != $user->getLogin()){
             return $this->userNotPermit();
         }
         if (empty($user)) {

@@ -25,6 +25,7 @@
             <ul>
               <li><a href="{{path('add_trip')}}">Ajouter un séjour</a></li>
               <li><a href="{{path('get_picture')}}">Récupérer les photos</a></li>
+              <li><a href="{{path('delete_actuality')}}">Supprimer une actualité</a></li>
               <li><a href="{{path('delete_picture')}}">Supprimer une photo</a></li>
               <li><a href="{{path('delete_comment')}}">Supprimer un commentaire</a></li>
               <li><a href="{{path('delete_trip')}}">Supprimer un séjour</a></li>
@@ -33,7 +34,7 @@
 
           <li><a href="#">Enfant</a>
             <ul>
-            	<li><a href="{{path('synchronize')}}">Synchroniser les enfants et les séjours</a></li>
+            	<li><a href="{{path('import')}}">Importer les enfants et les séjours</a></li>
             </ul>
           </li>
           <li><a href="#">Directeur</a>
@@ -45,7 +46,14 @@
           </li>
           <li><a href="#">Utilisateur</a>
             <ul>
-            	<li><a href="">Supprimer un utilisateur</a></li>
+            	<li><a href="{{path('block_user')}}">Bloquer un utilisateur</a></li>
+              <li><a href="{{path('unblock_user')}}">Débloquer un utilisateur</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Autre</a>
+            <ul>
+              <li><a href="{{path('add_partener')}}">Ajouter un partenaire</a></li>
+              <li><a href="{{path('upload_brochure')}}">Uploader brochure</a></li>
             </ul>
           </li>
         </ul>

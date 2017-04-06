@@ -1,0 +1,24 @@
+{% extends "AppBundle:Admin:layout.html.twig" %}
+
+{% block title %}Uploader une brochure{% endblock %}
+{% block body %}
+	{% if ok is defined %}
+		<div class="alert alert-success">Brochure bien uploadée</div>
+	{% endif %}
+	<div class="form-style-8">
+  		<h2>Uploader une brochure</h2>
+			{{ form_start(form) }}
+			{{form_label(form.choiceFile, "Choissisez la brochure à uploader")}}
+			{{form_widget(form.choiceFile)}}
+			<br/>
+			{{form_label(form.choiceType, "Choissisez le type de la brochure")}}
+			<br/>
+			{{form_label(form.choiceType.0, "Brochure d'été : ")}}
+			{{form_widget(form.choiceType.0)}}
+			<br/>
+			{{form_label(form.choiceType.1, "Brochure d'hiver : ")}}
+			{{form_widget(form.choiceType.1)}}
+			<br/>
+			{{ form_end(form) }}
+	</div>
+{% endblock %}

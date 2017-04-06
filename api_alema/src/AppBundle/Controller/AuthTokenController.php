@@ -35,7 +35,10 @@ class AuthTokenController extends Controller
         if (!$user) { // L'utilisateur n'existe pas
             return $this->invalidCredentials();
         }
-
+        if ($user->getBlocked() == true){ //L'utilisateur est bloqué
+            return $this->blocked();
+        }
+        
         $encoder = $this->get('security.password_encoder');
         $isPasswordValid = $encoder->isPasswordValid($user, $credentials->getPassword());
 
@@ -87,5 +90,10 @@ class AuthTokenController extends Controller
     private function invalidCredentials()
     {
         throw new \Symfony\Component\HttpKernel\Exception\BadRequestHttpException('Invalid Credentials');
+    }
+
+    private function blocked()
+    {
+        throw new \Symfony\Component\HttpKernel\Exception\BadRequestHttpException('blocked');
     }
 }

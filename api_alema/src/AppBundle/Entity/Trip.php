@@ -58,7 +58,7 @@ class Trip
     protected $urlPicture;
 
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="string", length=1000)
      */
     protected $description;
 

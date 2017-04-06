@@ -1,0 +1,26 @@
+{% extends "AppBundle:Admin:layout.html.twig" %}
+
+{% block title %}Supprimer une actualité{% endblock %}
+{% block body %}
+	{{ form_start(form) }}
+		<div class="flexRow">
+			<div>
+				{{ form_widget(form.deleteAction)}}
+			</div>
+			<div class="backChoiceTrip">
+				<a href="{{path('delete_actuality')}}"><button type="button">Retour</button></a>
+			</div>
+		</div>
+		<table class="table">
+			{% for actuality in actualities %}
+				<tr>
+					{% set commentIndex = actuality.id %}
+					<td class="comCheck">{{ form_widget(attribute(form, commentIndex)) }}</td>
+					<td class="comText">{{actuality.text}}</td>
+					<td class="comLogin"><img src="{{actuality.pictureName}}" width="100%" /></td>
+					<td class="comDate">{{actuality.date | date("m/d/Y")}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{{ form_end(form) }}
+{% endblock %}

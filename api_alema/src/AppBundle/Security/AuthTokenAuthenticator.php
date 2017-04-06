@@ -59,6 +59,11 @@ class AuthTokenAuthenticator implements SimplePreAuthenticatorInterface, Authent
             return;
         }
 
+        //Pour la brochure d'hiver
+        if($this->httpUtils->checkRequestPath($request, '/parteners')){
+            return;
+        }
+
         //Pour avoir tous les séjours dans la partie globale
         if ($request->getMethod() === "GET" && $this->httpUtils->checkRequestPath($request, '/trips')) {
             return;

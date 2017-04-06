@@ -24,7 +24,7 @@ class BrochureController extends Controller
             //$message->attach(\Swift_Attachment::fromPath($this->getParameter('brochures_directory')."BrochureEte.pdf"));
         }
         else{
-            $message->setTo("manonb54@numericable.fr");
+            $message->setTo("y.bourgery@gmail.com");
             $message->setBody('Envoie de brochure d\'été à'.' '.$request->get('lastname').' '.$request->get('firstname').' à l\'adresse '.$request->get('address').' '.$request->get('postcode').' '.$request->get('city'));
         }
         $this->get('mailer')->send($message);
@@ -44,7 +44,7 @@ class BrochureController extends Controller
             //$message->attach(\Swift_Attachment::fromPath($this->getParameter('brochures_directory')."BrochureEte.pdf"));
         }
         else{
-            $message->setTo("manonb54@numericable.fr");
+            $message->setTo("y.bourgery@gmail.com");
             $message->setBody('Envoie de brochure d\'hiver à'.' '.$request->get('lastname').' '.$request->get('firstname').' à l\'adresse '.$request->get('address').' '.$request->get('postcode').' '.$request->get('city'));
         }
         $this->get('mailer')->send($message);

@@ -1,0 +1,23 @@
+{% extends "AppBundle:Admin:layout.html.twig" %}
+
+{% block title %}Ajouter un partenaire{% endblock %}
+
+{% block body %}
+	{% if ok is defined %}
+		<div class="alert alert-success">Partenaire bien ajouté</div>
+	{% endif %}
+	{% if ko is defined %}
+		<div class="alert alert-danger">La description doit faire moins de 500 caractères</div>
+	{% endif %}
+	<div class="form-style-8">
+  		<h2>Ajouter un partenaire</h2>
+		{{form_start(form)}}
+		{{form_label(form.urlSite, "Site du partenaire")}}
+		{{form_widget(form.urlSite)}}
+		{{form_label(form.urlImg, "Logo du partenaire")}}
+		{{form_widget(form.urlImg)}}
+		{{form_label(form.description, "Description du partenaire")}}
+		{{form_widget(form.description)}}
+		{{form_end(form)}}
+	</div>
+{% endblock %}

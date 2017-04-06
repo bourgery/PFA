@@ -28,6 +28,11 @@ class Child
     protected $lastname;
 
     /**
+     * @ORM\Column(type="date")
+     */
+    protected $birthDate;
+
+    /**
      * @ORM\Column(name="familyNumber", type="string")
      */
     protected $familyNumber;
@@ -90,6 +95,15 @@ class Child
 
     public function setFamilyNumber($familyNumber){
         $this->familyNumber = $familyNumber;
+    }
+
+    public function getBirthDate(){
+        return $this->birthDate;
+    }
+
+    public function setBirthDate($birthDate){
+        $this->birthDate = $birthDate;
+        return $this;
     }
 
     public function getRelative(){

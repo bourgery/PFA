@@ -69,8 +69,12 @@ class CommentController extends Controller
      */
     public function postCommentAction(Request $request){
         $idTrip = $request->get('idTrip');
+        $trip = $this->get('doctrine.orm.entity_manager')
+              ->getRepository('AppBundle:Trip')
+              ->find($idTrip);
         $loginUser = $this->get('security.token_storage')->getToken()->getUser()->getLogin();
-        if($this->userIsPermit($idTrip, $loginUser) === false){
+        $director = $this->container->get('security.authorization_checker')->isGranted('ROLE_DIRECTOR') && $trip->getManager()->getUser()->getLogin() === $loginUser;
+        if(!$director && $this->userIsPermit($idTrip, $loginUser) === false){
             return $this->userNotPermit();
         }
         $user = $this->get('doctrine.orm.entity_manager')

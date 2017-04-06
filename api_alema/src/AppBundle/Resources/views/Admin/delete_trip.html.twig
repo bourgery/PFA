@@ -5,8 +5,11 @@
 	{% if ok is defined %}
 		<div class="alert alert-success">Séjour bien supprimé</div>
 	{% endif %}
-	{{ form_start(form) }}
-	{{form_label(form.choiceTrip, "Choississez le séjour")}}
-	{{form_widget(form.choiceTrip)}}
-	{{ form_end(form) }}
+	<div class="form-style-8">
+  		<h2>Supprimer un séjour</h2>
+		{{ form_start(form) }}
+		{{form_label(form.choiceTrip, "Choississez le séjour")}}
+		{{form_widget(form.choiceTrip)}}
+		{{ form_end(form) }}
+	</div>
 {% endblock %}

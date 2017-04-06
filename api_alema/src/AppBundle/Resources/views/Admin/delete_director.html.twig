@@ -6,8 +6,11 @@
 	{% if ok is defined %}
 		<div class="alert alert-success">Directeur bien supprimé</div>
 	{% endif %}
-	{{ form_start(form) }}
-	{{form_label(form.choiceDirector, "Choississez le directeur à supprimer")}}
-	{{form_widget(form.choiceDirector)}}
-	{{ form_end(form) }}
+	<div class="form-style-8">
+  		<h2>Supprimer un directeur</h2>
+		{{ form_start(form) }}
+		{{form_label(form.choiceDirector, "Choississez le directeur à supprimer")}}
+		{{form_widget(form.choiceDirector)}}
+		{{ form_end(form) }}
+	</div>
 {% endblock %}

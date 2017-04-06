@@ -6,12 +6,29 @@ add_director:
     path:     /admin/add-director
     defaults: { _controller: AppBundle:AdminDirector:addDirector }
 
+add_partener:
+    path:     /admin/add-partener
+    defaults: { _controller: AppBundle:AdminPartener:addPartener }
+
 add_trip:
     path: /admin/add-trip
     defaults: { _controller: AppBundle:AdminTrip:addTrip }
+
+block_user:
+    path: /admin/block-user
+    defaults: { _controller: AppBundle:AdminUser:blockUser }
+
 create_director:
     path: /admin/create-director
     defaults: { _controller: AppBundle:AdminDirector:createDirector }
+
+delete_actuality:
+    path: /admin/delete-actuality
+    defaults: { _controller: AppBundle:AdminTrip:deleteActuality }
+
+delete_actuality_execute:
+    path: /admin/delete-actuality/{id}
+    defaults: { _controller: AppBundle:AdminTrip:deleteActualityExecute }
 
 delete_comment:
     path: /admin/delete-comment
@@ -44,6 +61,11 @@ get_picture:
 home:
     path: /admin/accueil
     defaults: {_controller: AppBundle:Admin:home}
+
+import:
+    path: /admin/import
+    defaults: { _controller: AppBundle:AdminChild:import}
+
 login:
     path:     login
     defaults: { _controller: AppBundle:Admin:login }
@@ -53,10 +75,14 @@ login_check:
 
 logout:
     path: logout
-    
-synchronize:
-    path: /admin/synchronize
-    defaults: { _controller: AppBundle:AdminChild:synchronize}
+
+unblock_user:
+    path: /admin/unblock-user
+    defaults: { _controller: AppBundle:AdminUser:unblockUser }
+
+upload_brochure:
+    path: /admin/upload_brochure
+    defaults: { _controller: AppBundle:AdminUpload:upload }
     
 #Route pour l'api
 access_children: 

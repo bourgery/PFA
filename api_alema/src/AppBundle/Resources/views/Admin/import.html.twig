@@ -1,0 +1,18 @@
+{% extends "AppBundle:Admin:layout.html.twig" %}
+
+{% block title %}Importer les enfants aux séjours{% endblock %}
+{% block body %}
+	{% if ok is defined %}
+		<div class="alert alert-success">Import bien effectué</div>
+	{% endif %}
+	<div class="form-style-8">
+  		<h2>Importer les enfants</h2>
+		{{ form_start(form) }}
+		{{form_label(form.choiceTrip, "Choissisez le séjour")}}
+		{{form_widget(form.choiceTrip)}}
+		{{form_label(form.choiceFile, "Choissisez le fichier excel")}}
+		{{form_widget(form.choiceFile)}}
+		<br/>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

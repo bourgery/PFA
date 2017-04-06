@@ -21,6 +21,17 @@ class AdminTripController extends Controller
     	$form = $this->createForm(TripType::class, $trip);
     	$form->handleRequest($request);
         if($form->isSubmitted()){
+            $data = $form->getData();
+            if(strlen($data->getDescription()) >= 1000){
+               return $this->render('AppBundle:Admin:add_trip.html.twig', array(
+                    'form' => $form->createView(),
+                    'ko' => "La description doit être inférieur à 1000 caractères")); 
+            }
+            if($data->getDateStart() > $data->getDateEnd()){
+               return $this->render('AppBundle:Admin:add_trip.html.twig', array(
+                    'form' => $form->createView(),
+                    'ko' => "La date de départ doit être inférieur à la date de fin"));  
+            }
         	if($form->isValid()){
         		$em = $this->get('doctrine.orm.entity_manager');
     			$em->persist($trip);
@@ -38,6 +49,59 @@ class AdminTripController extends Controller
 		return $this->render('AppBundle:Admin:add_trip.html.twig', array(
             'form' => $form->createView()));
 	}
+
+    public function deleteActualityAction(Request $request){
+        return $this->choiceTripAction($request, "delete_actuality_execute", "Supprimer une actualité");
+    }
+
+    public function deleteActualityExecuteAction($id, Request $request){
+        $form = $this->createFormBuilder();
+        $qb = $this->get('doctrine.orm.entity_manager')->createQueryBuilder();
+        $qb->select('a')
+           ->from('AppBundle:Actuality', 'a')
+           ->orderBy('a.date', 'DESC')
+           ->where('a.idTrip = :idTrip')
+           ->setParameter('idTrip', $id);
+        $actualities = $qb->getQuery()->getResult();
+        $i = 0;
+        foreach ($actualities as $actuality) {
+            $tab[$i] = $actuality->getId();
+            $i ++;
+            $form->add($actuality->getId(), CheckboxType::class, array(
+                'value' => $actuality->getId(),
+                'required' => false));
+            $actuality->setPictureName('../../uploads/actualities/'.$actuality->getPictureName());
+        }
+        $form->add('deleteAction', SubmitType::class, array('label' => 'Supprimer'));
+        $form = $form->getForm();
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $data = $form->getData();
+            foreach ($tab as $id) {
+                if($data[$id] == true){
+                    $actuality = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:Actuality')
+                        ->find($id);
+                    $fileName = $this->getParameter('actualities_directory').'/'.$actuality->getPictureName();
+                    $fs = new Filesystem();
+                    if($fs->exists($fileName)){
+                        $fs->remove($fileName);
+                    }
+                    $em = $this->get('doctrine.orm.entity_manager');
+                    $likeActuality = $actuality->getLikeActuality();
+                    foreach ($likeActuality as $like) {
+                        $em->remove($like);
+                    }
+                    $em->remove($actuality);
+                    $em->flush();
+                }
+            }
+            return $this->redirectToRoute('delete_actuality');
+        }
+        return $this->render('AppBundle:Admin:delete_actuality_execute.html.twig', array(
+                   'form' => $form->createView(),
+                   'actualities' => $actualities));
+    }
 
 	public function getPictureAction(Request $request){
 		$trips = $this->get('doctrine.orm.entity_manager')
@@ -105,7 +169,7 @@ class AdminTripController extends Controller
 					$fileName = $this->getParameter('pictures_directory').'/'.$picture->getPictureName();
 			    	$fs = new Filesystem();
 			    	if($fs->exists($fileName)){
-			        	$fs->remove($fileName);
+			        	$fs->unlink($fileName);
 			    	}
 					$em = $this->get('doctrine.orm.entity_manager');
 			    	$likePicture = $picture->getLikePicture();
@@ -161,6 +225,7 @@ class AdminTripController extends Controller
             }
             return $this->redirectToRoute('delete_comment');
         }
+        
         return $this->render('AppBundle:Admin:delete_comment_execute.html.twig', array(
                    'form' => $form->createView(),
                    'comments' => $comments));

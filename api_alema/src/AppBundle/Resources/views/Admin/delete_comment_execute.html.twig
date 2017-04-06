@@ -11,12 +11,16 @@
 				<a href="{{path('delete_comment')}}"><button type="button">Retour</button></a>
 			</div>
 		</div>
-		{% for comment in comments %}
-			<div>
-				{% set commentIndex = comment.id %}
-				{{ form_widget(attribute(form, commentIndex)) }}
-				{{comment.text}}
-			</div>
-		{% endfor %}
+		<table class="table">
+			{% for comment in comments %}
+				<tr>
+					{% set commentIndex = comment.id %}
+					<td class="comCheck">{{ form_widget(attribute(form, commentIndex)) }}</td>
+					<td class="comText">{{comment.text}}</td>
+					<td class="comLogin">{{comment.loginUser.login}}</td>
+					<td class="comDate">{{comment.date | date("m/d/Y")}}</td>
+				</tr>
+			{% endfor %}
+		</table>
 	{{ form_end(form) }}
 {% endblock %}

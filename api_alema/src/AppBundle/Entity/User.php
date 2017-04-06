@@ -72,6 +72,11 @@ class User implements UserInterface
      */
     protected $roles = array('ROLE_USER');
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $blocked;
+
     protected $plainPassword;
 
     public function __construct()
@@ -81,6 +86,7 @@ class User implements UserInterface
         $this->comment = new ArrayCollection();
         $this->likePicture = new ArrayCollection();
         $this->likeActuality = new ArrayCollection();
+        $this->blocked = false;
     }
 
     public function getLogin()
@@ -198,7 +204,16 @@ class User implements UserInterface
         // allows for chaining
         return $this;
     }
- 
+    
+    public function getBlocked(){
+        return $this->blocked;
+    }
+
+    public function setBlocked($blocked){
+        $this->blocked = $blocked;
+        return $this;
+    }
+    
     public function getSalt()
     {
         return null;
