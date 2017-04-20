@@ -169,7 +169,7 @@ class AdminTripController extends Controller
 					$fileName = $this->getParameter('pictures_directory').'/'.$picture->getPictureName();
 			    	$fs = new Filesystem();
 			    	if($fs->exists($fileName)){
-			        	$fs->unlink($fileName);
+			        	$fs->remove($fileName);
 			    	}
 					$em = $this->get('doctrine.orm.entity_manager');
 			    	$likePicture = $picture->getLikePicture();
